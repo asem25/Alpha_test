@@ -84,8 +84,7 @@ alpha_test/
 │   ├── services/         # Бизнес-логика
 │   ├── AlphaTestApplication.java  # Точка входа
 ├── src/test/java/ru/semavin/alpha_test/
-│   ├── ClientServiceTest.java  # Тесты для ClientService
-│   ├── ContactServiceTest.java # Тесты для ContactService
+│   ├── ContactControllerTest.java # Тесты для ContactController
 │   ├── ClientControllerTest.java # Тесты для ClientController
 ├── src/main/resources/
 │   ├── application.properties  # Настройки приложения
