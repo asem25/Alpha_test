@@ -1,4 +1,3 @@
-
 # Alpha Test Application
 
 ## Описание проекта
@@ -9,6 +8,7 @@
 - Автоматическая обработка исключений (ExceptionHandler).
 - Документированный API с использованием Swagger.
 - Запуск приложения через Docker.
+- Покрытие тестами с использованием JUnit и Mockito.
 
 ## Технологический стек
 - Java 21
@@ -17,6 +17,8 @@
 - PostgreSQL
 - Swagger/OpenAPI
 - Docker/Docker Compose
+- JUnit 5
+- Mockito
 
 ## Запуск приложения
 
@@ -28,7 +30,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone <URL вашего репозитория>
+   git clone https://github.com/asem25/Alpha_test.git
    cd alpha_test
    ```
 
@@ -47,6 +49,31 @@
 docker-compose down
 ```
 
+## Тестирование
+
+### Запуск тестов
+Для запуска модульных тестов выполните команду:
+```bash
+mvn test
+```
+
+После выполнения команды `mvn test` вы увидите отчет с результатами тестов в терминале. Он содержит следующую информацию:
+- Общее количество тестов, которые были выполнены.
+- Количество успешно пройденных, пропущенных или завершившихся с ошибками тестов.
+
+Пример вывода:
+```
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] BUILD SUCCESS
+```
+
+### Технологии для тестирования
+- **JUnit 5**: для написания и запуска тестов.
+- **Mockito**: для создания и использования моков в тестах.
+
 ## Структура проекта
 ```
 alpha_test/
@@ -56,6 +83,10 @@ alpha_test/
 │   ├── repositories/     # Репозитории JPA
 │   ├── services/         # Бизнес-логика
 │   ├── AlphaTestApplication.java  # Точка входа
+├── src/test/java/ru/semavin/alpha_test/
+│   ├── ClientServiceTest.java  # Тесты для ClientService
+│   ├── ContactServiceTest.java # Тесты для ContactService
+│   ├── ClientControllerTest.java # Тесты для ClientController
 ├── src/main/resources/
 │   ├── application.properties  # Настройки приложения
 ├── Dockerfile
@@ -80,5 +111,5 @@ alpha_test/
 
 
 ## Автор
-Разработано в рамках тестового задания. 
-Связаться: asemavin250604@gmail.com.
+Разработано в рамках тестового задания.
+ Связаться: asemavin250604@gmail.com.
