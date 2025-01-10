@@ -83,6 +83,6 @@ public class ContactController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteContact(@PathVariable Long id) {
         contactService.deleteContact(id);
-        return ResponseEntity.ok("Contact with id: " + id + " deleted");
+        return ResponseEntity.ok("Contact with id: " + id + " deleted successfully");
     }
 }

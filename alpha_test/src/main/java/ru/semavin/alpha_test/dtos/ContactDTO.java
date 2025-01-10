@@ -27,7 +27,7 @@ public class ContactDTO {
     @Schema(description = "Электронная почта клиента", example = "example@mail.com")
     private String email;
 
-    @NotNull
     @Schema(description = "Идентификатор клиента", example = "1")
+    @ToString.Exclude
     private Long client_id;
 }

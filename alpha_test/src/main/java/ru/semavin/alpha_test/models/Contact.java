@@ -24,6 +24,7 @@ public class Contact {
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
+    @ToString.Exclude
     private Client client;
 
 

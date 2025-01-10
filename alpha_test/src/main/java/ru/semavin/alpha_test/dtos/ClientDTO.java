@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -32,5 +29,6 @@ public class ClientDTO {
 
     @NotEmpty(message = "Contacts list must not be empty")
     @Schema(description = "Список контактов клиента")
+    @ToString.Exclude
     private List<@Valid ContactDTO> contacts;
 }

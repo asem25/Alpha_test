@@ -20,5 +20,6 @@ public class Client {
     private String lastName;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Contact> contacts;
 }

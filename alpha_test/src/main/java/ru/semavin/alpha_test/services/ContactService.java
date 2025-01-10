@@ -16,68 +16,57 @@ import java.util.List;
 @Slf4j
 public class ContactService {
     private final ContactRepository contactRepository;
-    private final ClientService clientService;
+    private final CoordinatorService coordinatorService;
+
     @Autowired
-    public ContactService(ContactRepository contactRepository, ClientService clientService) {
+    public ContactService(ContactRepository contactRepository, CoordinatorService coordinatorService) {
         this.contactRepository = contactRepository;
-        this.clientService = clientService;
+        this.coordinatorService = coordinatorService;
     }
 
     public List<ContactDTO> getAllContacts() {
+        log.info("Fetching all contacts");
         return contactRepository.findAll().stream()
-                .map(this::convertContactToContactDTO)
+                .map(CoordinatorService::convertContactToContactDTO)
                 .toList();
     }
+
     public ContactDTO getContactById(Long id) {
-        return convertContactToContactDTO(contactRepository.findById(id)
-                .orElseThrow(() -> new ContactNotFoundException("Contact with this id: " + id + " not found")));
+        log.info("Fetching contact with ID: {}", id);
+        return CoordinatorService.convertContactToContactDTO(contactRepository.findById(id)
+                .orElseThrow(() -> new ContactNotFoundException("Contact with ID: " + id + " not found")));
     }
+
     @Transactional
     public void createContact(ContactDTO contactDTO) {
-        log.info("Create contact : " + contactDTO);
-        contactRepository.save(convertContactDTOtoContact(contactDTO));
+        log.info("Creating contact: {}", contactDTO);
+
+        Client client = coordinatorService.findClientById(contactDTO.getClient_id());
+        Contact contact = CoordinatorService.convertContactDTOtoContact(contactDTO);
+
+        contact.setClient(client);
+
+        contactRepository.save(contact);
+
+        log.info("Contact created: {}", contact);
     }
-    @Transactional
+
     public void updateContact(Long id, ContactDTO contactDTO) {
-
-        Contact contactFromContactRepository = contactRepository.findById(id)
-                .orElseThrow(() -> new ContactNotFoundException("Contact with this id: " + id + "not found"));
-
-        Client client = clientService.getClientById(contactDTO.getClient_id());
-
-
-
-        contactFromContactRepository.setClient(client);
-        contactFromContactRepository.setEmail(contactDTO.getEmail());
-        contactFromContactRepository.setPhone(contactDTO.getPhone());
-
-        contactRepository.save(contactFromContactRepository);
-        log.info("Contact with id: " + id + "update");
+        log.info("Updating contact with ID: {}", id);
+        coordinatorService.updateContact(id, contactDTO);
     }
+
     @Transactional
     public void deleteContact(Long id) {
-        if (!contactRepository.existsById(id)) {
+        log.info("Deleting contact with ID: {}", id);
 
-            throw new ContactNotFoundException("Contact with this id: " + id + " not found");
+        if (!contactRepository.existsById(id)) {
+            throw new ContactNotFoundException("Contact with ID: " + id + " not found");
         }
 
         contactRepository.deleteById(id);
-        log.info("Contact with id: " + id + " delete");
-    }
 
-
-    private Contact convertContactDTOtoContact(ContactDTO contactDTO){
-        return Contact.builder()
-                .phone(contactDTO.getPhone())
-                .email(contactDTO.getEmail())
-                .client(clientService.getClientById(contactDTO.getClient_id()))
-                .build();
-    }
-    private ContactDTO convertContactToContactDTO(Contact contact){
-        return ContactDTO.builder()
-                .client_id(contact.getClient().getClientId())
-                .email(contact.getEmail())
-                .phone(contact.getPhone())
-                .build();
+        log.info("Contact with ID: {} successfully deleted", id);
     }
 }
+
