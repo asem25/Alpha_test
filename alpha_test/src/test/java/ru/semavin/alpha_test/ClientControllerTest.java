@@ -1,6 +1,5 @@
 package ru.semavin.alpha_test;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
