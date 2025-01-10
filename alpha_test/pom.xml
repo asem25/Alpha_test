@@ -59,11 +59,7 @@
 			<version>2.7.0</version>
 		</dependency>
 
-		<!-- Docker Compose -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-		</dependency>
+
 
 		<!-- Devtools -->
 		<dependency>
